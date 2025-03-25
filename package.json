@@ -1,6 +1,6 @@
 {
   "name": "json-tabifier",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A CLI tool to format package.json file with customizable key alignment and indentation.",
   "main": "tabifier.js",
   "bin": {
