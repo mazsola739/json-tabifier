@@ -14,13 +14,13 @@ const formatPackageJson = (filePath, maxKeyLength) => {
     return Object.entries(obj)
       .map(([key, value]) => {
         const padding = ' '.repeat(indent)
-        if (maxKeyLength && key.length > maxKeyLength) {
-          return `${padding}"${key}": ${JSON.stringify(value)}`
-        }
-
         if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
           const formattedSubObject = formatObject(value, maxKeyLength, indent + 2)
           return `${padding}"${key}": {\n${formattedSubObject}\n${padding}}`
+        }
+
+        if (maxKeyLength && key.length > maxKeyLength) {
+          return `${padding}"${key}": ${JSON.stringify(value)}`
         }
 
         const paddedKey = `"${key}"`.padEnd(longestKeyLength + 2, ' ')
