@@ -1,6 +1,6 @@
 {
   "name": "json-tabifier",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI tool to format package.json file with customizable key alignment and indentation.",
   "main": "tabifier.js",
   "bin": {
@@ -17,5 +17,9 @@
   ],
   "author": "Rika",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mazsola739/json-tabifier.git"
+  }
 }
