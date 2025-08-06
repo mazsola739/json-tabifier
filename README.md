@@ -13,7 +13,9 @@ default:
 {
   "onlyPackageJson": true,
   "maxKeyLength"   : 0
+  "excludes"       : ["node_modules"]
 }
+
 ```
     - onlyPackageJson - boolean
         - true: only formatting package.json
@@ -21,6 +23,11 @@ default:
     - maxKeyLength - number
         - 0: no max key length set
         - other number: The maximum length of keys to align. Keys longer than this will not be aligned.
+    - excluded - array of string
+        - default: ['node_modules']
+        - if you want to exclude some json files, choose a substring that will match the fullPath to that file and it / those files will be not formatted.
+            - example: ['node_modules', 'result', 'dist'] 
+            if the string is part of the full path for a file they will get excluded, even if that's a folder's name or the file's name.
 
 ## Installation
 
