@@ -16,23 +16,11 @@ function loadJSON(filePath) {
 function loadConfig() {
     try {
         const defaultConfigPath = path.resolve(__dirname, `..${sep}config${sep}json-tabifier.json`)
-        const localConfigPath = path.resolve(__dirname, `..${sep}json-tabifier.json`)
+        const localConfigPath = path.resolve(process.cwd(), `json-tabifier.json`)
 
         const defaultConfig = loadJSON(defaultConfigPath)
         const localConfig = loadJSON(localConfigPath)
 
-        console.log('default config')
-        console.log(__dirname)
-        console.log(defaultConfigPath)
-        console.log(defaultConfig)
-        console.log('~ ~ ~')
-
-        console.log('local config')
-        console.log(localConfigPath)
-        console.log(localConfig)
-        console.log('~ ~ ~')
-
-        // Merge configs: local > home > default
         const conf = {
             ...defaultConfig,
             ...localConfig
