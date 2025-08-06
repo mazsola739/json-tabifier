@@ -6,7 +6,21 @@ A CLI tool to format package.json file with customizable key alignment and inden
 
 - Aligns package.json keys for better readability.
 - Supports nested objects.
-- Allows customization of maximum key length for alignment.
+- Allows customization based on  json-tabifier.json config file
+
+default:
+```
+{
+  "onlyPackageJson": true,
+  "maxKeyLength"   : 0
+}
+```
+    - onlyPackageJson - boolean
+        - true: only formatting package.json
+        - false: resursivle from current dir formatting all json files
+    - maxKeyLength - number
+        - 0: no max key length set
+        - other number: The maximum length of keys to align. Keys longer than this will not be aligned.
 
 ## Installation
 
@@ -29,22 +43,17 @@ pnpm add json-tabifier
 Run the formatter on a JSON file:
 
 ```bash
-tabify <maxKeyLength>
+tabify
 ```
-
-- `<maxKeyLength>` (optional): The maximum length of keys to align. Keys longer than this will not be aligned.
 
 Example:
 
 ```bash
-tabify 20
+tabify
 ```
 
-This will format the `package.json` file in the current directory, aligning keys up to 20 characters long.
+This will format the `package.json` file in the current directory, aligning keys up with no limit.
 
-## Fix for `maxKeyLength` with Nested Objects
-
-Previously, when the `maxKeyLength` parameter was specified, the tool skipped formatting nested objects and returned them as a single line. This issue has been fixed. Now, even if a key exceeds the `maxKeyLength`, its value (if it's an object) will still be formatted recursively.
 
 ## Example Input
 
