@@ -1,4 +1,4 @@
 {
-  "onlyPackageJson": true,
+  "onlyPackageJson": false,
   "maxKeyLength"   : 0
 }

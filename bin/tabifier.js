@@ -2,11 +2,10 @@
 const fs = require('fs')
 const path = require('path')
 const loadConfig = require('./configLoader')
-const config = loadConfig()
+const {maxKeyLength, onlyPackageJson, excludes} = loadConfig()
 
 const formatJson = (filePath) => {
     console.time(`Formatting ${filePath}`)
-    const { maxKeyLength } = config
     const rawData = fs.readFileSync(filePath, 'utf-8')
     const jsonData = JSON.parse(rawData)
 
@@ -49,8 +48,19 @@ function collectJsonFiles(dir) {
     for (const file of list) {
         const fullPath = path.join(dir, file)
         const stat = fs.statSync(fullPath)
+        let excluded = false
 
-        if (stat && stat.isDirectory()) {
+        for (const exclude of excludes) {
+            const pattern = new RegExp(exclude)
+            if (pattern.test(fullPath)) {
+                excluded = true
+                break
+            }
+        }
+
+        if (excluded) {
+            console.log(`excluded: ${fullPath} based on excluded config`)
+        } else if (stat && stat.isDirectory()) {
             results = results.concat(collectJsonFiles(fullPath))
         } else if (file.endsWith('.json')) {
             results.push(fullPath)
@@ -61,7 +71,7 @@ function collectJsonFiles(dir) {
 }
 
 
-if (config.onlyPackageJson) {
+if (onlyPackageJson) {
     const packageJsonPath = path.join(process.cwd(), 'package.json')
     formatJson(packageJsonPath)
 } else {
