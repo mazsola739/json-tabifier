@@ -7,6 +7,8 @@
 
 Formats `package.json` and other JSON files so that the values line up in a neat column.
 
+**[Try it in your browser →](https://mazsola739.github.io/json-tabifier/#playground)**
+
 **Before**
 
 ```json
