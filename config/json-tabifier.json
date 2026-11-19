@@ -1,5 +1,0 @@
-{
-  "onlyPackageJson": true,
-  "maxKeyLength"   : 0,
-  "excludes"       : ["node_modules"]
-}

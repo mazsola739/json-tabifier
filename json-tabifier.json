@@ -1,4 +1,3 @@
 {
-  "onlyPackageJson": false,
-  "maxKeyLength"   : 0
+  "onlyPackageJson": false
 }

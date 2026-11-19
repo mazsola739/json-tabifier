@@ -1,19 +1,35 @@
 {
   "name"       : "json-tabifier",
-  "version"    : "1.1.1",
-  "description": "A CLI tool to format package.json file with customizable key alignment and indentation.",
-  "main"       : "./bin/tabifier.js",
+  "version"    : "2.0.0",
+  "description": "Format package.json and other JSON files with neatly aligned keys. Tiny, zero-dependency CLI.",
   "keywords"   : ["json","formatter","cli","alignment","indentation","tabify","tabifier","package.json"],
-  "author"     : "Rika",
-  "license"    : "MIT",
-  "bin": {
-    "tabify": "./bin/tabifier.js"
-  },
-  "scripts": {
-    "tabify": " npx tabify"
-  },
+  "homepage"   : "https://github.com/mazsola739/json-tabifier#readme",
+  "bugs"       : "https://github.com/mazsola739/json-tabifier/issues",
   "repository": {
     "type": "git",
-    "url" : "https://github.com/mazsola739/json-tabifier.git"
+    "url" : "git+https://github.com/mazsola739/json-tabifier.git"
+  },
+  "license"    : "MIT",
+  "author"     : "Rika",
+  "files"      : ["bin","lib","index.js","index.d.ts"],
+  "main"       : "./index.js",
+  "types"      : "./index.d.ts",
+  "exports": {
+    ".": {
+      "types"  : "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "tabify": "bin/tabifier.js"
+  },
+  "engines": {
+    "node": ">=18.3"
+  },
+  "scripts": {
+    "test"          : "node --test",
+    "tabify"        : "node bin/tabifier.js",
+    "prepublishOnly": "npm test && node bin/tabifier.js --check"
   }
 }
