@@ -1,6 +1,10 @@
 # Changelog
 
-## 2.0.0 (unreleased)
+## 2.0.1 (2026-11-19)
+
+- README: reworded a sentence that the npm website displayed incorrectly.
+
+## 2.0.0 (2026-11-19)
 
 A rewrite that keeps the 1.x look, with the changes listed below.
 

@@ -43,7 +43,7 @@ Formats `package.json` and other JSON files so that the values line up in a neat
 ```
 
 - **Zero dependencies**, a few kilobytes.
-- **Lossless:** values are written exactly as they were. Big numbers, `1.50`, `1e3` and escape sequences such as `é` stay untouched.
+- **Lossless:** values are written exactly as they were. Big numbers, `1.50`, `1e3` and escaped characters stay untouched.
 - **Safe:** files that aren't valid JSON are reported and left alone. Files that are already formatted are not rewritten.
 - Keeps Windows line endings and a byte order mark.
 - `--check` mode for CI, plus a small API with TypeScript types.
