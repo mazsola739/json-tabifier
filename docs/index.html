@@ -333,7 +333,7 @@
   <div class="pkg-head">
     <h1>json-tabifier <span class="ts-badge" title="Ships TypeScript types">TS</span></h1>
     <p class="meta">
-      <span data-live="version">2.0.1</span><span class="sep">•</span><span class="ok">MIT</span><span class="sep">•</span>0 dependencies<span class="sep">•</span>Published <span data-live="published">Nov 19, 2026</span>
+      <span data-live="version">2.0.2</span><span class="sep">•</span><span class="ok">MIT</span><span class="sep">•</span>0 dependencies<span class="sep">•</span>Published <span data-live="published">Nov 19, 2026</span>
     </p>
   </div>
 
@@ -356,7 +356,7 @@
     </button>
     <button class="tab tab-versions" role="tab" id="tab-versions" aria-controls="panel-versions" data-tab="versions">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 12.5V4h8.5l9 9-8.5 8.5z"/><circle cx="7.5" cy="8.5" r="1.4" fill="currentColor"/></svg>
-      <span><span data-live="version-count">8</span> Versions</span>
+      <span><span data-live="version-count">9</span> Versions</span>
     </button>
   </div>
 
@@ -558,7 +558,7 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
         </div>
       </section>
       <div class="facts">
-        <section><h4>Version</h4><p data-live="version">2.0.1</p></section>
+        <section><h4>Version</h4><p data-live="version">2.0.2</p></section>
         <section><h4>License</h4><p>MIT</p></section>
         <section><h4>Unpacked Size</h4><p data-live="size">24.4 kB</p></section>
         <section><h4>Total Files</h4><p data-live="files">9</p></section>
@@ -832,6 +832,7 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
 
   /* ---------- live package data ---------- */
   const NOTES = {
+    '2.0.2': 'The package homepage now points to this page.',
     '2.0.1': 'README wording fix for the npm website.',
     '2.0.0': 'Rewrite on a lossless parser. New CLI with paths, <code>--check</code> and exit codes, a typed API, 33 tests and CI on three operating systems. Keys that open nested blocks no longer widen the column.',
     '1.1.1': '<code>excludes</code> option and quieter output.',
@@ -863,9 +864,9 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
     setLive('version-count', String(list.length))
   }
   renderVersions({
-    '2.0.1': '2026-11-19T22:10:00Z', '2.0.0': '2026-11-19T22:02:00Z', '1.1.1': '2025-08-06T17:22:45Z', '1.1.0': '2025-08-06T13:46:27Z',
+    '2.0.2': '2026-11-19T22:50:00Z', '2.0.1': '2026-11-19T22:10:00Z', '2.0.0': '2026-11-19T22:02:00Z', '1.1.1': '2025-08-06T17:22:45Z', '1.1.0': '2025-08-06T13:46:27Z',
     '1.0.3': '2025-03-25T15:34:13Z', '1.0.2': '2025-03-25T14:36:49Z', '1.0.1': '2025-03-25T14:33:10Z', '1.0.0': '2025-03-25T14:27:59Z'
-  }, '2.0.1')
+  }, '2.0.2')
 
   fetch(`https://registry.npmjs.org/${PKG}`)
     .then((res) => (res.ok ? res.json() : Promise.reject(new Error(res.status))))
