@@ -55,16 +55,24 @@ Formats `package.json` and other JSON files so that the values line up in a neat
 Run it once without installing:
 
 ```bash
-npx json-tabifier
+npx json-tabifier        # npm
+pnpm dlx json-tabifier   # pnpm
+yarn dlx json-tabifier   # Yarn 2+ (on Yarn 1, use npx)
+bunx json-tabifier       # Bun
 ```
 
 Or add it to your project:
 
 ```bash
 npm install --save-dev json-tabifier
+pnpm add -D json-tabifier
+yarn add -D json-tabifier
+bun add -d json-tabifier
 ```
 
 ## Usage
+
+The examples use `npx`. With other package managers, run `pnpm exec tabify`, `yarn tabify` or `bunx tabify` instead.
 
 ```bash
 npx tabify                        # formats ./package.json

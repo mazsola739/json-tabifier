@@ -63,6 +63,10 @@
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .25);
   }
 
+  :root { --brand-orange: #ff4b01; --mark-dim: #b5b5b5; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mark-dim: #5c5c5c; } }
+  :root[data-theme="dark"] { --mark-dim: #5c5c5c; }
+
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
@@ -98,9 +102,11 @@
 
   .masthead { border-bottom: 1px solid var(--border); box-shadow: 0 4px 10px -8px rgba(0, 0, 0, .15); }
   .masthead .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 40px; padding-top: 22px; padding-bottom: 22px; }
-  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .wordmark svg { width: 40px; height: 40px; flex: none; }
-  .wordmark span { font: 800 32px/1 var(--display); letter-spacing: -.02em; }
+  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+  .wordmark svg { width: 34px; height: 34px; flex: none; }
+  .wordmark span { font: 500 30px/1 var(--mono); letter-spacing: -.03em; }
+  .mark-colon { fill: var(--brand-orange); }
+  .mark-value { fill: var(--mark-dim); }
   .cmdbar { display: flex; align-items: stretch; min-width: 0; border-radius: 4px; overflow: hidden; background: var(--bar-bg); }
   .cmdbar code { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; padding: 18px 22px; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cmdbar code .prompt { color: var(--muted); }
@@ -109,12 +115,14 @@
     font: 600 18px var(--display); padding: 0 40px; transition: filter .15s;
   }
   .btn:hover { filter: brightness(1.15); }
+  .cmdbar .btn { display: flex; align-items: center; justify-content: center; }
+  .btn-icon { display: none; width: 20px; height: 20px; }
   .avatar {
-    width: 58px; height: 58px; border-radius: 50%; flex: none; display: grid; place-items: center;
-    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c12127 55%, #5a0b10);
-    color: #fff; font: 600 24px var(--display); text-decoration: none;
-    box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--border);
+    width: 48px; height: 48px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    border: 2px solid currentColor; background: transparent; color: var(--text);
+    font: 500 20px var(--mono); text-decoration: none; transition: color .15s;
   }
+  a.avatar:hover, .author-line:hover .avatar { color: var(--brand-orange); }
 
   /* ---------- package head + tabs ---------- */
   .pkg-head { padding: 64px 0 24px; }
@@ -231,8 +239,28 @@
   /* ---------- sidebar ---------- */
   aside h4 { margin: 0 0 8px; font: 600 17px var(--sans); color: var(--muted); }
   aside section { padding: 22px 0; border-bottom: 1px solid var(--border); }
-  aside section:first-child { padding-top: 6px; }
-  .install { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 6px; padding: 14px 12px 14px 18px; font: 400 17px var(--mono); }
+  aside > section:first-child { padding-top: 6px; }
+  .pm-pick { position: relative; display: flex; align-items: center; flex: none; border-right: 1px solid var(--border); }
+  .pm-pick select {
+    appearance: none; -webkit-appearance: none; height: 100%; border: 0; background: transparent; color: var(--text);
+    font: 500 17px var(--mono); padding: 0 36px 0 20px; cursor: pointer;
+  }
+  .pm-pick select option { background: var(--bg); color: var(--text); }
+  .pm-pick::after {
+    content: ""; position: absolute; right: 16px; top: 50%; width: 7px; height: 7px; pointer-events: none;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-70%) rotate(45deg);
+  }
+  .pm-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .pm-seg button { border: 0; background: none; color: var(--muted); font: 500 13px var(--mono); padding: 4px 9px; cursor: pointer; }
+  .pm-seg button + button { border-left: 1px solid var(--border); }
+  .pm-seg button:hover { color: var(--text); }
+  .pm-seg button[aria-checked="true"] { background: var(--text); color: var(--bg); }
+  .panel .pm-seg { margin: 0 0 12px; }
+  .install-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .install-head h4 { margin: 0; }
+  .pm-note { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+  .pm-note code { font-size: .92em; }
+  .install { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 6px; padding: 14px 10px 14px 16px; font: 400 15px var(--mono); }
   .install .chev { color: var(--muted); }
   .install code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .copy { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 4px; border-radius: 4px; display: grid; place-items: center; }
@@ -252,7 +280,7 @@
   .facts section:nth-child(odd) { padding-right: 12px; }
   .facts p, .author-line { margin: 0; font: 600 20px var(--sans); }
   .author-line { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .author-line .avatar { width: 40px; height: 40px; font-size: 17px; box-shadow: none; }
+  .author-line .avatar { width: 40px; height: 40px; font-size: 17px; border-width: 1.5px; }
   .author-line small { display: block; font: 400 15px var(--sans); color: var(--muted); }
 
   footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 15px; }
@@ -271,11 +299,19 @@
     .topnav a, .icon-btn { padding: 8px 10px; font-size: 15px; }
     .masthead .wrap { grid-template-columns: 1fr auto; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
     .cmdbar { grid-column: 1 / -1; grid-row: 2; }
-    .cmdbar code { padding: 12px 14px; font-size: 15px; }
+    .cmdbar code { padding: 12px 10px; font-size: 14px; gap: 8px; }
+    .cmdbar code .prompt { display: none; }
+    .cmdbar .btn { padding: 0 14px; }
+    .cmdbar .btn-label { display: none; }
+    .cmdbar .btn .clip { display: block; }
+    .cmdbar .btn.copied .clip { display: none; }
+    .cmdbar .btn.copied .check { display: block; }
+    .pm-pick select { font-size: 15px; padding: 0 28px 0 12px; }
+    .pm-pick::after { right: 11px; width: 6px; height: 6px; }
     .btn { padding: 0 18px; font-size: 16px; }
-    .wordmark svg { width: 32px; height: 32px; }
-    .wordmark span { font-size: 26px; }
-    .avatar { width: 44px; height: 44px; font-size: 19px; }
+    .wordmark svg { width: 28px; height: 28px; }
+    .wordmark span { font-size: 25px; }
+    .avatar { width: 40px; height: 40px; font-size: 17px; border-width: 1.5px; }
     .pkg-head { padding: 32px 0 16px; }
     .pkg-head h1 { font-size: 28px; }
     .meta { font-size: 14px; }
@@ -314,16 +350,27 @@
   <div class="wrap">
     <a class="wordmark" href="#overview" aria-label="json-tabifier home">
       <svg viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="currentColor"/>
-        <g fill="var(--bg)"><rect x="5" y="8" width="6" height="4" rx="1"/><rect x="5" y="14" width="9" height="4" rx="1"/><rect x="5" y="20" width="4" height="4" rx="1"/></g>
-        <g fill="#ff4b01"><rect x="16" y="8" width="2" height="4"/><rect x="16" y="14" width="2" height="4"/><rect x="16" y="20" width="2" height="4"/></g>
-        <g fill="#a0a0a0"><rect x="20" y="8" width="7" height="4" rx="1"/><rect x="20" y="14" width="5" height="4" rx="1"/><rect x="20" y="20" width="8" height="4" rx="1"/></g>
+        <g fill="currentColor"><rect x="3" y="7" width="7" height="4" rx="1"/><rect x="3" y="14" width="10" height="4" rx="1"/><rect x="3" y="21" width="5" height="4" rx="1"/></g>
+        <g class="mark-colon"><rect x="15" y="7" width="2.5" height="4"/><rect x="15" y="14" width="2.5" height="4"/><rect x="15" y="21" width="2.5" height="4"/></g>
+        <g class="mark-value"><rect x="20" y="7" width="9" height="4" rx="1"/><rect x="20" y="14" width="6" height="4" rx="1"/><rect x="20" y="21" width="10" height="4" rx="1"/></g>
       </svg>
       <span>tabify</span>
     </a>
     <div class="cmdbar">
-      <code><span class="prompt">$</span><span id="hero-cmd">npx json-tabifier</span></code>
-      <button class="btn" type="button" data-copy="npx json-tabifier">Copy</button>
+      <label class="pm-pick"><span class="sr-only">Package manager</span>
+        <select data-pm-select>
+          <option value="npm">npm</option>
+          <option value="pnpm">pnpm</option>
+          <option value="yarn">yarn</option>
+          <option value="bun">bun</option>
+        </select>
+      </label>
+      <code><span class="prompt">$</span><span data-pm="run">npx json-tabifier</span></code>
+      <button class="btn" type="button" data-copy="npx json-tabifier" data-pm-copy="run" aria-label="Copy command">
+        <svg class="btn-icon clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+        <svg class="btn-icon check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span class="btn-label">Copy</span>
+      </button>
     </div>
     <a class="avatar" href="https://github.com/mazsola739" title="Rika on GitHub" aria-label="Rika on GitHub">R</a>
   </div>
@@ -451,18 +498,19 @@
       <!-- ================= CLI ================= -->
       <section class="panel" id="panel-cli" role="tabpanel" aria-labelledby="tab-cli" hidden>
         <h2>Command line</h2>
-        <p class="lede">Run it once with <code>npx json-tabifier</code>, or add it to your project with <code>npm install --save-dev json-tabifier</code> and use the <code>tabify</code> command.</p>
+        <p class="lede">Run it once with <code data-pm="run">npx json-tabifier</code>, or add it to your project with <code data-pm="add">npm i -D json-tabifier</code> and use the <code>tabify</code> command.</p>
+        <div class="pm-seg" role="radiogroup" aria-label="Package manager" data-pm-seg></div>
 <pre class="code"><span class="c"># formats ./package.json</span>
-npx tabify
+<span data-pm="bin">npx tabify</span>
 
 <span class="c"># every .json file under the current directory</span>
-npx tabify .
+<span data-pm="bin">npx tabify</span> .
 
 <span class="c"># the given files, and .json files in the given directories</span>
-npx tabify tsconfig.json config/
+<span data-pm="bin">npx tabify</span> tsconfig.json config/
 
 <span class="c"># changes nothing; exit code 1 if a file needs formatting</span>
-npx tabify --check</pre>
+<span data-pm="bin">npx tabify</span> --check</pre>
 
         <h3>Options</h3>
         <div class="table-wrap">
@@ -535,13 +583,17 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
     <!-- ================= Sidebar ================= -->
     <aside aria-label="Package details">
       <section>
-        <h4>Install</h4>
-        <div class="install"><span class="chev" aria-hidden="true">›</span><code>npm i -D json-tabifier</code>
-          <button class="copy" type="button" data-copy="npm i -D json-tabifier" aria-label="Copy install command" title="Copy">
+        <div class="install-head">
+          <h4>Install</h4>
+          <div class="pm-seg" role="radiogroup" aria-label="Package manager" data-pm-seg></div>
+        </div>
+        <div class="install"><span class="chev" aria-hidden="true">›</span><code data-pm="add">npm i -D json-tabifier</code>
+          <button class="copy" type="button" data-copy="npm i -D json-tabifier" data-pm-copy="add" aria-label="Copy install command" title="Copy">
             <svg class="clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
             <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </button>
         </div>
+        <p class="pm-note" data-pm-note hidden>Yarn 1 has no <code>dlx</code>; use <code>npx json-tabifier</code> there.</p>
       </section>
       <section>
         <h4>Repository</h4>
@@ -628,15 +680,56 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
       try { document.execCommand('copy') } catch (err) {}
       area.remove()
     }
-    if (button.classList.contains('btn')) {
-      button.textContent = 'Copied'
-      setTimeout(() => { button.textContent = 'Copy' }, 1500)
-    } else {
-      button.classList.add('copied')
-      setTimeout(() => button.classList.remove('copied'), 1500)
-    }
+    const label = button.querySelector('.btn-label')
+    if (label) label.textContent = 'Copied'
+    button.classList.add('copied')
+    setTimeout(() => {
+      if (label) label.textContent = 'Copy'
+      button.classList.remove('copied')
+    }, 1500)
   }
   $$('[data-copy]').forEach((button) => button.addEventListener('click', () => copyText(button.dataset.copy, button)))
+
+  /* ---------- package manager switcher ---------- */
+  const PACKAGE_MANAGERS = {
+    npm : { run: 'npx json-tabifier', add: 'npm i -D json-tabifier', bin: 'npx tabify' },
+    pnpm: { run: 'pnpm dlx json-tabifier', add: 'pnpm add -D json-tabifier', bin: 'pnpm exec tabify' },
+    yarn: { run: 'yarn dlx json-tabifier', add: 'yarn add -D json-tabifier', bin: 'yarn tabify' },
+    bun : { run: 'bunx json-tabifier', add: 'bun add -d json-tabifier', bin: 'bunx tabify' }
+  }
+  const pmNames = Object.keys(PACKAGE_MANAGERS)
+  $$('[data-pm-seg]').forEach((group) => {
+    group.innerHTML = pmNames.map((name) => `<button type="button" role="radio" data-pm-choice="${name}">${name}</button>`).join('')
+  })
+  function setPackageManager(name, { remember = true } = {}) {
+    if (!PACKAGE_MANAGERS[name]) name = 'npm'
+    const commands = PACKAGE_MANAGERS[name]
+    $$('[data-pm]').forEach((el) => { el.textContent = commands[el.dataset.pm] })
+    $$('[data-pm-copy]').forEach((button) => { button.dataset.copy = commands[button.dataset.pmCopy] })
+    $$('[data-pm-select]').forEach((select) => { select.value = name })
+    $$('[data-pm-choice]').forEach((button) => {
+      const checked = button.dataset.pmChoice === name
+      button.setAttribute('aria-checked', String(checked))
+      button.tabIndex = checked ? 0 : -1
+    })
+    $$('[data-pm-note]').forEach((note) => { note.hidden = name !== 'yarn' })
+    if (remember) try { localStorage.setItem('jt-pm', name) } catch (e) {}
+  }
+  $$('[data-pm-select]').forEach((select) => select.addEventListener('change', () => setPackageManager(select.value)))
+  $$('[data-pm-choice]').forEach((button) => {
+    button.addEventListener('click', () => setPackageManager(button.dataset.pmChoice))
+    button.addEventListener('keydown', (event) => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key]
+      if (!step) return
+      event.preventDefault()
+      const next = pmNames[(pmNames.indexOf(button.dataset.pmChoice) + step + pmNames.length) % pmNames.length]
+      setPackageManager(next)
+      button.parentElement.querySelector(`[data-pm-choice="${next}"]`).focus()
+    })
+  })
+  let savedPackageManager = null
+  try { savedPackageManager = localStorage.getItem('jt-pm') } catch (e) {}
+  setPackageManager(savedPackageManager || 'npm', { remember: false })
 
   /* ---------- tabs ---------- */
   const tabs = $$('[role="tab"]')
