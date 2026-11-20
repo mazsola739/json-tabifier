@@ -10,7 +10,7 @@
     "url" : "git+https://github.com/mazsola739/json-tabifier.git"
   },
   "license"    : "MIT",
-  "author"     : "Rika",
+  "author"     : "Rika (https://mazsola739.github.io/mazsola739/)",
   "files"      : ["bin","lib","index.js","index.d.ts"],
   "main"       : "./index.js",
   "types"      : "./index.d.ts",

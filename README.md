@@ -169,4 +169,4 @@ See the [changelog](https://github.com/mazsola739/json-tabifier/blob/main/CHANGE
 
 ## License
 
-[MIT](LICENSE) © Rika
+[MIT](LICENSE) © [Rika](https://mazsola739.github.io/mazsola739/)

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `author` field and README link to the author's portfolio.
+
 ## 2.0.3 (2026-11-20)
 
 - README: install and run commands for pnpm, Yarn and Bun.
