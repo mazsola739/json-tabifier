@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3 (2026-11-20)
+
+- README: install and run commands for pnpm, Yarn and Bun.
+
 ## 2.0.2 (2026-11-19)
 
 - `homepage` points to the new project page with a live playground: https://mazsola739.github.io/json-tabifier/

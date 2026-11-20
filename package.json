@@ -1,6 +1,6 @@
 {
   "name"       : "json-tabifier",
-  "version"    : "2.0.2",
+  "version"    : "2.0.3",
   "description": "Format package.json and other JSON files with neatly aligned keys. Tiny, zero-dependency CLI.",
   "keywords"   : ["json","formatter","cli","alignment","indentation","tabify","tabifier","package.json"],
   "homepage"   : "https://mazsola739.github.io/json-tabifier/",
