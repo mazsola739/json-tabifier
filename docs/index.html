@@ -286,6 +286,19 @@
   .author-line a:hover { text-decoration: underline; }
   .author-line small a:hover { color: var(--text); }
   footer a { color: var(--text); }
+  .ext { width: 14px; height: 14px; flex: none; }
+  .show-sm { display: none; }
+  .topnav a.portfolio-pill {
+    display: inline-flex; align-items: center; gap: 6px; margin-right: 4px; padding: 6px 14px;
+    border: 1.5px solid var(--text); border-radius: 99px;
+  }
+  .topnav a.portfolio-pill:hover { background: none; border-color: var(--brand-orange); color: var(--brand-orange); }
+  .portfolio-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 11px 16px;
+    border: 1.5px solid var(--text); border-radius: 6px; color: var(--text); text-decoration: none; font: 600 17px var(--sans);
+    transition: background-color .15s, color .15s;
+  }
+  .portfolio-btn:hover { background: var(--text); color: var(--bg); }
 
   footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 15px; }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-top: 24px; padding-bottom: 32px; }
@@ -300,6 +313,8 @@
     .wrap { padding: 0 16px; }
     body { font-size: 16px; }
     .topnav .hide-sm { display: none; }
+    .topnav .show-sm { display: inline; }
+    .topnav a.portfolio-pill { padding: 5px 12px; }
     .topnav a, .icon-btn { padding: 8px 10px; font-size: 15px; }
     .masthead .wrap { grid-template-columns: 1fr auto; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
     .cmdbar { grid-column: 1 / -1; grid-row: 2; }
@@ -342,10 +357,13 @@
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
     </button>
     <a href="#playground">Playground</a>
-    <a href="#cli">CLI</a>
+    <a href="#cli" class="hide-sm">CLI</a>
     <a href="#api" class="hide-sm">API</a>
     <span class="spacer"></span>
-    <a href="https://mazsola739.github.io/mazsola739/" class="hide-sm">Portfolio</a>
+    <a href="https://mazsola739.github.io/mazsola739/" class="portfolio-pill">
+      <span class="hide-sm">Rika's portfolio</span><span class="show-sm">Portfolio</span>
+      <svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg>
+    </a>
     <a href="https://github.com/mazsola739/json-tabifier" class="hide-sm">GitHub</a>
     <a href="https://www.npmjs.com/package/json-tabifier">npm</a>
   </div>
@@ -628,9 +646,13 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
           <a class="avatar" href="https://mazsola739.github.io/mazsola739/" tabindex="-1" aria-hidden="true">R</a>
           <span>
             <a class="author-name" href="https://mazsola739.github.io/mazsola739/">Rika</a>
-            <small><a href="https://mazsola739.github.io/mazsola739/">Portfolio</a> · <a href="https://github.com/mazsola739">GitHub</a></small>
+            <small><a href="https://github.com/mazsola739">@mazsola739 on GitHub</a></small>
           </span>
         </div>
+        <a class="portfolio-btn" href="https://mazsola739.github.io/mazsola739/">
+          View my portfolio
+          <svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg>
+        </a>
       </section>
     </aside>
   </div>
@@ -638,7 +660,7 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
 
 <footer>
   <div class="wrap">
-    <span>Made by <a href="https://mazsola739.github.io/mazsola739/">Rika</a> · MIT licensed</span>
+    <span>Made by Rika · <a href="https://mazsola739.github.io/mazsola739/">See more of my work ↗</a> · MIT licensed</span>
     <span><a href="https://github.com/mazsola739/json-tabifier">GitHub</a> · <a href="https://www.npmjs.com/package/json-tabifier">npm</a></span>
   </div>
 </footer>
@@ -697,6 +719,15 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
     }, 1500)
   }
   $$('[data-copy]').forEach((button) => button.addEventListener('click', () => copyText(button.dataset.copy, button)))
+
+  /* ---------- every link that leaves the page opens in a new tab ---------- */
+  function openLinksInNewTab(root = document) {
+    root.querySelectorAll('a[href^="http"]').forEach((link) => {
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
+    })
+  }
+  openLinksInNewTab()
 
   /* ---------- package manager switcher ---------- */
   const PACKAGE_MANAGERS = {
@@ -964,6 +995,7 @@ format(text, { maxKeyLength: <span class="n">20</span>, indent: <span class="n">
         ${NOTES[version] ? `<p>${NOTES[version]}</p>` : ''}
       </li>`).join('')
     setLive('version-count', String(list.length))
+    openLinksInNewTab($('#versions'))
   }
   renderVersions({
     '2.0.3': '2026-11-20T06:30:00Z', '2.0.2': '2026-11-19T22:50:00Z', '2.0.1': '2026-11-19T22:10:00Z', '2.0.0': '2026-11-19T22:02:00Z', '1.1.1': '2025-08-06T17:22:45Z', '1.1.0': '2025-08-06T13:46:27Z',
